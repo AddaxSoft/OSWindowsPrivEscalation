@@ -3,8 +3,10 @@ a step by step guide to preform Windows related privilege escalation from limite
 
 # todos
 - [x] Set up the initial  template
-- [ ] Find a cooler + catchy name for the project
-- [ ] Test the template rendering
-- [ ] Test webserver streaming
-- [ ] Open contributions
+- [x] Find a cooler + catchy name for the project
+- [x] Test the template rendering
+- [x] Test webserver streaming
+- [x] Open contributions
+- [ ] write the enumuration phase
+- [ ] write some scripts for enum
 
