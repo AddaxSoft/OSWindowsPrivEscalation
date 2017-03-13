@@ -16,9 +16,13 @@ Needless to state: You're responosible for what you're doing :-)
 
 ------
 
-# Let's go to it!
+# Let's get to it!
 
-## OS Enumurations
+# OS Enumurations
+In this stage you want to learn as much as possible about the operating system.
+Note any odd things and investigate them until you hit a dead-end, then do the next thing.
+
+## Windows Version and Configuration
 What Windows is it, what version?
 
     systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
@@ -26,9 +30,10 @@ What Windows is it, what version?
 What architecture? x86 or x64?
 
     wmic os get osarchitecture
+    echo %PROCESSOR_ARCHITECTURE%
 
 List all env variables
-    
+
     set
 
 ## Processes Enum
@@ -39,3 +44,26 @@ What processes are running?
 Which processes are running as "system"
 
     tasklist /v /fi "username eq system"
+    
+## Users Enumuration
+Get current username
+
+    whoami
+    echo %USERNAME%
+
+List all users 
+
+    net user
+
+Get details about a user
+
+    net user administrator
+
+## Network Enumuration
+List all network interfaces
+
+    ipconfig /all
+
+List all current connections
+
+    netstat -ano
