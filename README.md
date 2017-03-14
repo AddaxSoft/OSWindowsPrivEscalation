@@ -7,6 +7,7 @@ a step by step guide to preform Windows related privilege escalation from limite
 - [x] Test the template rendering
 - [x] Test webserver streaming
 - [x] Open contributions
-- [ ] write the enumuration phase
+- [x] write the enumuration phase
+- [ ] more powershell examples [Console Aliases?](https://msdn.microsoft.com/en-us/library/windows/desktop/ms682057(v=vs.85).aspx) 
 - [ ] write some scripts for enum
 
