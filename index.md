@@ -40,6 +40,14 @@ What architecture? x86 or x64?
 
     wmic os get osarchitecture || echo %PROCESSOR_ARCHITECTURE%
 
+Are you on Windows 7 or hight? Skip the reset of the enumurations and use the default `gatherNetworkInfo.vbs` script
+This script does all the OS enum magic! Read more about it [here](https://answers.microsoft.com/en-us/windows/forum/windows_7-security/does-anyone-know-what-gathernetworkinfovbs-is-its/63a302a6-cf69-4b9a-a3ef-4b2aff1b2514) run this one liner to generate the config folder that contains all the txt files, which have very juicy info.
+To understand better what is being generated, look into the source of the script `c:\windows\system32\gatherNetworkInfo.vbs`
+
+Note: some txt files will contain errors as you're not admin (yet).
+
+    cd %TEMP% & cscript c:\windows\system32\gatherNetworkInfo.vbs & cd config & dir
+
 List all env variables
 
     set
