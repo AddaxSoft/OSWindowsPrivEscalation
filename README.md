@@ -37,4 +37,5 @@ First place would be to solve [issues](https://github.com/AddaxSoft/OSWindowsPri
 - [x] do some testing regarding console alises 
 - [x] test powershell calls (since we will run them non-interactively)
 - [ ] write some scripts for enum
-- [ ] shadow of gatherNetworkInfo.vbs [info](http://www.verboon.info/2011/06/the-gathernetworkinfo-vbs-script/)
+- [x] shadow of gatherNetworkInfo.vbs [info](http://www.verboon.info/2011/06/the-gathernetworkinfo-vbs-script/)
+- [ ] add tightVNC portable server [page](https://sourceforge.net/projects/vnc-tight/files/TightVNC-win32/1.3.10/tightvnc-1.3.10_x86.zip/download)
