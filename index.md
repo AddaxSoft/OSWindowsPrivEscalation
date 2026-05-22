@@ -18,6 +18,7 @@ This document is meant for pen-testers, red teams, and the like.
 
 # Contributors
 - AK | Author and Maintainer [amAK.xyz](https://imAK.xyz), [@xxByte](https://twitter.com/xxByte)
+- [Hacktivity.eu](https://hacktivity.eu/) - Offensive Security by Real Hackers
 
 
 ------
