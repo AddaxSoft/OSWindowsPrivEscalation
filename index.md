@@ -26,6 +26,67 @@ This document is meant for pen-testers, red teams, and the like.
 
 ---
 
+# Table of Contents
+
+- [OS Enumeration](#os-enumeration)
+    - [Windows Version and Configuration](#windows-version-and-configuration)
+    - [Users Enumeration](#users-enumeration)
+    - [Network Enumeration](#network-enumeration)
+    - [Scheduled Tasks Enumeration](#scheduled-tasks-enumeration)
+    - [Installed Software Enumeration](#installed-software-enumeration)
+    - [Startup Programs Enumeration](#startup-programs-enumeration)
+- [Looting Clear Text Passwords](#looting-clear-text-passwords)
+    - [Searching in Files](#searching-in-files)
+    - [Searching in Registry](#searching-in-registry)
+    - [Processes Enum](#processes-enum)
+    - [Credential Manager and DPAPI](#credential-manager-and-dpapi)
+- [Abusing Weak Services](#abusing-weak-services)
+    - [Spot Weak Services Using PowerSploit's PowerUP](#spot-weak-services-using-powersploits-powerup)
+    - [Unquoted Service Paths](#unquoted-service-paths)
+    - [Weak Service Binary Permissions](#weak-service-binary-permissions)
+    - [Weak Service Registry Permissions](#weak-service-registry-permissions)
+    - [AlwaysInstallElevated](#alwaysinstallelevated)
+- [Token Impersonation and Privilege Abuse](#token-impersonation-and-privilege-abuse)
+    - [SeImpersonatePrivilege / SeAssignPrimaryTokenPrivilege](#seimpersonateprivilege--seassignprimarytokenprivilege)
+    - [SeBackupPrivilege](#sebackupprivilege)
+    - [SeLoadDriverPrivilege](#seloaddriverprivilege)
+    - [SeTakeOwnershipPrivilege](#setakeownershipprivilege)
+- [DLL Hijacking](#dll-hijacking)
+    - [Finding Hijackable DLL Paths](#finding-hijackable-dll-paths)
+    - [Phantom DLL Hijacking](#phantom-dll-hijacking)
+    - [DLL Hijacking via Startup Folder](#dll-hijacking-via-startup-folder)
+- [Exploiting Weak Permissions on Filesystem Objects](#exploiting-weak-permissions-on-filesystem-objects)
+    - [Writable Paths in SYSTEM or High-Privilege Process Working Directories](#writable-paths-in-system-or-high-privilege-process-working-directories)
+    - [Writable Scheduled Task Binaries](#writable-scheduled-task-binaries)
+- [UAC Bypass Techniques](#uac-bypass-techniques)
+    - [fodhelper.exe Bypass](#fodhelpersexe-bypass-windows-10)
+    - [eventvwr.exe Bypass](#eventvwrexe-bypass-windows-10)
+    - [DiskCleanup Scheduled Task Bypass](#diskcleanup-scheduled-task-bypass-windows-10)
+    - [UACME](#uacme)
+- [Named Pipe Impersonation](#named-pipe-impersonation)
+    - [Custom Named Pipe Server](#custom-named-pipe-server)
+- [Credential Harvesting from Memory](#credential-harvesting-from-memory)
+    - [Mimikatz](#mimikatz)
+    - [LSASS Dump Without Mimikatz](#lsass-dump-without-mimikatz)
+    - [ProcDump](#procdump)
+    - [Windows Credential Guard Note](#windows-credential-guard-note)
+- [Kernel and Driver Exploits](#kernel-and-driver-exploits)
+    - [Checking for Missing Patches](#checking-for-missing-patches)
+    - [HiveNightmare / SeriousSAM (CVE-2021-36934)](#hivenightmare--serioussamcve-2021-36934)
+- [Active Directory Related (Local to Domain)](#active-directory-related-local-to-domain)
+    - [Pass-the-Hash](#pass-the-hash)
+    - [NTLM Relay](#ntlm-relay)
+    - [LAPS Credential Read](#laps-credential-read)
+- [Tools and Binaries](#tools-and-binaries)
+    - [(De)compressing Files](#decompressing-files)
+    - [Uploading and Downloading Files](#uploading-and-downloading-files)
+    - [Automated Enumeration Scripts](#automated-enumeration-scripts)
+    - [Accesschk (Sysinternals)](#accesschk-sysinternals)
+- [Special Thanks and Original Inspirations](#special-thanks-and-original-inspirations)
+
+<br>
+
+
 Let's get to it!
 
 <br>
