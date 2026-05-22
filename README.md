@@ -1,6 +1,6 @@
 # What is this?
 a step by step guide to preform Windows related privilege escalation from limited shell into SYSTEM abusing misconfigurations and local exploits.
-We call it "WPECS" for short and can be accessed at [AddaxSoft.com/WPECS](https://addaxsoft.com/wpecs) with a dark and easy to read theme.
+We call it "WPECS" for short and can be accessed at [hacktivity.eu/windows-privescal-library](https://hacktivity.eu/windows-privescal-library) with a dark and easy to read theme.
 
 
 
@@ -23,6 +23,7 @@ First place would be to solve [issues](https://github.com/AddaxSoft/OSWindowsPri
 
 ## Tips
 - you can use `[Another section](#new-section)` to reffer to a headline (e.g [this](#Format-and-Rules) will reffer to Format and rules)
+- need a realistic adversary assessment? check out my offerings at [hacktivity.eu/](https://hacktivity.eu/)
 
 
 
